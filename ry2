@@ -1,0 +1,133 @@
+#1. написать функцию, которая очищает лишние пробелы
+#   "woops     hello   world" > "woops hello world"
+#
+#2. Дано арифметичское выражиние в строке с + и - , вычеслить его значение ("5+6-19")
+#   int(a) - преобразовать строку в число   
+#   str(a) - преобразовать в строку
+#   list(a) - разделить строку по символам в массив
+#   "выражение" in list: проверяет наличие элемента
+#   for i, elem in enumerate(s):
+#3. дана строка латинских букв, посчитать количество слов в ней
+#4. заменить все гласные на звёздочки
+#5. выбросить все слова кароче 4 букв
+
+###############---Задание 1---##################
+def clean(a):
+    a = a.split()
+    a=" ".join(a)
+    return(a)
+
+a = "woops     hello   world"
+print(clean(a))
+
+
+
+###############---Задание 2---##################
+def math(s):
+    list(s)
+    rez=0
+    s2=""
+    k=0
+    for i,elem in enumerate(s):
+        if s[i]=="+":
+            s1=s2
+            if k!=1:
+                rez=rez+int(s1)
+                s2=""
+            else:
+                rez=rez-int(s1)
+                s2=""
+                k=0
+        elif s[i]=="-":
+            s1=s2
+            s2=""
+            if k==1:
+                rez=rez-int(s1)
+                s2=""
+            else:
+                rez=rez+int(s1)
+            k=1
+        elif i==(len(s)-1):
+            s2=s2+s[i]
+            if k!=1:
+                rez=rez+int(s2)
+                s2=""
+            else:
+                rez=rez-int(s2)
+                s2=""
+                k=0
+        else:
+            s2=s2+s[i]
+    return rez
+
+
+s="5+6-9"
+print(math(s))
+
+
+###############---Задание 3---##################
+
+def wcount(s):
+    s = s.split()
+    s=" ".join(s)
+    count = 0
+    if len(s)!=0:
+        count=1
+        for i in s:
+            if i == " ":
+                count=count+1
+            
+    return count
+
+w="радуга    дорога мяч    кружка"
+w2=" "
+print(wcount(w))
+print(wcount(w2))
+
+
+###############---Задание 4---##################
+
+
+def vStars(s):
+    alp = ["а","я","у","ю","о","е","ё","э","и","ы"]
+    list(s)
+    s2=""
+    if len(s)!=0:
+        for i,elem in enumerate(s):
+            if s[i] in alp:
+                s2=s2+"*"
+            else:
+                s2=s2+s[i]
+    return(s2)
+
+s1="мяч  фонарь улица дождь"
+print(vStars(s1))
+
+
+###############---Задание 5---##################
+
+def more4(s):
+    list(s)
+    s2=""
+    s3=""
+    c=0
+    if len(s)!=0:
+        for i,elem in enumerate(s):
+            if i==(len(s)-1):
+                if c>4:
+                    s2=s2+s3
+                    c=0
+                s3=""
+            elif s[i]!=" ":
+                s3=s3+s[i]
+                c=c+1
+            else:
+                if c>4:
+                    s2=s2+s3
+                    s2=s2+s[i]
+                s3=""
+                c=0
+    return(s2)
+
+s="zzzzz z zzzzz zz zzzzzz zzz z"
+print(more4(s))
