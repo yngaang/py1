@@ -1,0 +1,72 @@
+s1=["Россия","Франция","Германия"]
+s2=["Москва","Париж","Берлин"]
+
+print(zip(s1,s2))
+print(list(zip(s1,s2)))
+d=dict(list(zip(s1,s2)))
+print(d)
+print(d["Россия"])
+
+if "Россия" in d:
+    print("Y")
+else:
+    print("N")
+    
+if "США" in d:
+    print ("Y")
+else:
+    print("N")
+    
+
+for i in d:
+    print(i,":",d[i])
+
+d["США"]="Вашингтон"    
+print(d.keys())
+print(d.values())
+print(d.items())
+
+#поменять местами ключи и значения в словаре
+print("#поменять местами ключи и значения в словаре")
+k=list(d.keys())
+v=list(d.values())
+d=dict(list(zip(v,k)))
+print(d)
+
+#Найти топ 3 буквы, среднее количество
+print("#Найти топ 3 буквы, среднее количество")
+l = ["a","w","e","w","a","a","w","f","x","w","n","c","a","w","c","f","e","u","i","j","l","l","y","o","o","a"]
+di={}
+for i in l:
+    if i in di:
+        di[i]=di[i]+1
+    else:
+        di[i]=1
+print(di.items())
+k=list(di.keys())
+v=list(di.values())
+k.sort()
+v.sort(reverse=True)
+for i in range(0,3):
+    br=0
+    for j in di:
+        if v[i]==di[j]:
+            for l in range(len(k)):
+                if k[l]==j:
+                    di[j]=0
+                    print(j,v[i])
+                    br=1
+                    break
+            if br==1:
+                break
+        if br==1:
+            break
+     
+    
+sum=0
+avg=0
+for i in v:
+    sum=sum+i;
+
+avg=sum/(len(v)-1) #среднее
+print(avg)
