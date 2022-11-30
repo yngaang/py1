@@ -1,0 +1,54 @@
+import sys
+from random import randint
+
+mygraph = [[0, 1, 0, 0, 0, 0, 6, 3],
+           [1, 0, 4, 0, 0, 0, 0, 4],
+           [0, 4, 0, 1, 2, 3, 0, 0],
+           [0, 0, 1, 0, 5, 0, 0, 0],
+           [0, 0, 2, 5, 0, 3, 0, 0],
+           [0, 0, 3, 0, 3, 0, 1, 0],
+           [6, 0, 0, 0, 0, 1, 0, 5],
+           [3, 4, 0, 0, 0, 0, 5, 0]]
+
+
+def gen_graph(vertices):
+    graph = [[0 for column in range(vertices)]
+             for row in range(vertices)]
+    for i in range(vertices-1):
+        values = [0 for column in range(vertices)]
+        for k in range(len(values)):
+            values[k] = randint(1, 101)
+            graph[i][i-k] = values[k]
+        print(values)
+        values.clear()
+    for i in range(len(graph)):
+        graph[i][i] = 0
+    return graph
+newgraph = gen_graph(8)
+
+for i in range(len(newgraph)):
+    for i2 in range(len(newgraph)):
+        print(newgraph[i][i2], end = "\t")
+    print()
+
+def findmin(graph,setV):
+    min_r = sys.maxsize
+    for j in setV:
+        for i in range(len(graph)):
+            if i != j and graph[j][i] < min_r and graph[j][i] != 0 and i not in setV:
+                min_r = graph[j][i]
+                con_v1 = j
+                con_v2 = i
+    return min_r, con_v2, con_v1
+
+treeV = {0}
+travel_size = 0
+print("Edge \tWeight")
+for v in range(len(mygraph)):
+    if len(treeV) != len(mygraph):
+        pred_r, pred_v, inV = findmin(mygraph, treeV)
+        if pred_v not in treeV:
+            treeV.add(pred_v)
+            travel_size += pred_r
+            print(inV, "-", pred_v, "\t", pred_r)
+print("Total travel size = ", travel_size)
