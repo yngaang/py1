@@ -15,20 +15,16 @@ def gen_graph(vertices):
     graph = [[0 for column in range(vertices)]
              for row in range(vertices)]
     for i in range(vertices-1):
-        values = [0 for column in range(vertices)]
-        for k in range(len(values)):
-            values[k] = randint(1, 101)
-            graph[i][i-k] = values[k]
-        print(values)
-        values.clear()
-    for i in range(len(graph)):
-        graph[i][i] = 0
+        for j in range(i+1, vertices):
+            graph[i][j] = randint(1, 1000000)
+            graph[j][i] = graph[i][j]
     return graph
-newgraph = gen_graph(8)
+
+newgraph = gen_graph(3000)
 
 for i in range(len(newgraph)):
     for i2 in range(len(newgraph)):
-        print(newgraph[i][i2], end = "\t")
+        print(newgraph[i][i2], end="\t")
     print()
 
 def findmin(graph,setV):
@@ -41,6 +37,7 @@ def findmin(graph,setV):
                 con_v2 = i
     return min_r, con_v2, con_v1
 
+mygraph = newgraph
 treeV = {0}
 travel_size = 0
 print("Edge \tWeight")
@@ -50,5 +47,6 @@ for v in range(len(mygraph)):
         if pred_v not in treeV:
             treeV.add(pred_v)
             travel_size += pred_r
-            print(inV, "-", pred_v, "\t", pred_r)
+            print(inV, "-", pred_v, "\t", pred_r, "\t", len(treeV))
 print("Total travel size = ", travel_size)
+print(treeV, len(treeV))
