@@ -63,7 +63,7 @@ class Tree:
             print()
             v = vn
 
-    def el_wind_tree(self, node, wide):
+    def el_wind_tree(self, node, wide, el):
         if node is None:
             return
 
@@ -74,15 +74,23 @@ class Tree:
             vn = []     #вершины след уровня
             for x in v:
                 if wide == 1:
-                    return print(x.data, end=" ")
+                    print(x.data)
+                    if el == x.data:
+                        return True
+                    else:
+                        return False
                 if x.left:
                     vn += [x.left]
                 if x.left:
                     vn += [x.right]
             if k == wide - 1:
+                flag = False
                 for i in vn:
                     print(i.data, end=" ")
-                return
+                    if i.data == el:
+                        flag = True
+                print()
+                print(flag)
             v = vn
 
 
@@ -93,5 +101,5 @@ for x in v:
     t.append(Node(x))
 
 #t.show_tree(t.root)
-#t.wide_tree(t.root)
-t.el_wind_tree(t.root, 4)
+t.wide_tree(t.root)
+t.el_wind_tree(t.root, 4, 12)
